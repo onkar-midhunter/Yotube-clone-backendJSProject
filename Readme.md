@@ -116,28 +116,9 @@ Top-level in `src/`:
 - `utils/` - helpers (apiResponse, cloudinary, error wrappers)
 - `middelewares/` - auth and multer middleware
 
-## Security & accidental secrets
 
-I noticed a file `Users_id_password.txt` was present in the repository and contained plaintext credentials. If that file was pushed to a public or shared remote, treat those credentials as compromised and rotate them immediately.
 
-Quick steps you probably already did or should do:
 
-1. Add the file to `.gitignore` (already present in this repo).
-2. Remove the file from Git tracking (without deleting your local copy):
-
-```powershell
-git rm --cached "Users_id_password.txt"
-git commit -m "chore: remove Users_id_password.txt from repository"
-git push origin main
-```
-
-3. To completely remove the file from repository history (so it doesn't appear in past commits), use one of:
-
-- BFG Repo-Cleaner (easy) or `git-filter-repo` (recommended). These rewrite history and require a forced push and coordination with collaborators. See BFG: https://rtyley.github.io/bfg-repo-cleaner/ or `git filter-repo` docs.
-
-4. Immediately rotate any passwords or secrets that were exposed in the file. Removing the file from git history does NOT guarantee all mirrors, forks or caches are cleaned.
-
-If you want, I can generate the exact BFG or git-filter-repo commands for your repo and walk you through the process.
 
 ## Testing and linting
 
@@ -157,7 +138,6 @@ If you want me to:
 
 - Add a more detailed API reference (endpoint-by-endpoint examples)
 - Add sample Postman collection or curl examples
-- Remove `Users_id_password.txt` from git history (I can prepare steps)
 
 Tell me which of the above you'd like next and I will prepare it.
 
@@ -165,5 +145,3 @@ Tell me which of the above you'd like next and I will prepare it.
 
 _Generated README — feel free to ask for edits or additional sections (e.g., database migration, CI/CD, deployment, or Postman collection)._ 
 
-# chai aur backend series
-- [Model lonk](https://github.com/hiteshchoudhary/chai-backend?tab=readme-ov-file)
