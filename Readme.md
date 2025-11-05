@@ -104,6 +104,82 @@ Notes:
 	- `GET /api/v1/dashboard/stats/<channelId>`
 	- `GET /api/v1/dashboard/<channelId>`
 
+## Detailed API reference (examples)
+
+Below are common endpoints with example requests and expected behavior. Replace `{{baseUrl}}` and `{{accessToken}}` with your values.
+
+1) Health check
+- Method: GET
+- URL: `{{baseUrl}}/api/v1/healthChecker/`
+- Response: 200 OK — checks app health
+
+2) Authentication
+- Register
+	- Method: POST
+	- URL: `{{baseUrl}}/api/v1/users/register`
+	- Body (JSON): { "email": "you@example.com", "password": "strongpassword" }
+	- Response: 201 Created with user object (typically excludes password)
+
+- Login
+	- Method: POST
+	- URL: `{{baseUrl}}/api/v1/users/login`
+	- Body (JSON): { "email": "you@example.com", "password": "strongpassword" }
+	- Response: 200 OK with accessToken (use for Authorization: Bearer <token>)
+
+3) Videos
+- Get videos (list)
+	- Method: GET
+	- URL: `{{baseUrl}}/api/v1/videos/`
+
+- Get single video
+	- Method: GET
+	- URL: `{{baseUrl}}/api/v1/videos/:videoId`
+
+4) Subscriptions
+- Toggle subscription (subscribe/unsubscribe)
+	- Method: POST
+	- URL: `{{baseUrl}}/api/v1/subscription/toggle`
+	- Body (JSON): { "channelId": "<channelId>" }
+	- Auth: required (Bearer token)
+
+5) Comments
+- Add a top-level comment to a video
+	- Method: POST
+	- URL: `{{baseUrl}}/api/v1/comment/`
+	- Body (JSON): { "videoId": "<videoId>", "text": "Nice video!" }
+	- Auth: required
+
+- Reply to a comment
+	- Method: POST
+	- URL: `{{baseUrl}}/api/v1/comment/reply`
+	- Body (JSON): { "parentId": "<commentId>", "text": "Thanks!" }
+	- Auth: required
+
+- Get comments (paginated) for a video
+	- Method: GET
+	- URL: `{{baseUrl}}/api/v1/comment/video/:videoId?page=1&limit=10`
+
+6) Likes
+- Like/unlike a video
+	- Method: POST
+	- URL: `{{baseUrl}}/api/v1/like/toggle`
+	- Body (JSON): { "videoId": "<videoId>" }
+	- Auth: required
+
+7) Dashboard
+- Get channel stats
+	- Method: GET
+	- URL: `{{baseUrl}}/api/v1/dashboard/stats/:channelId`
+
+8) Playlists
+- Create playlist
+	- Method: POST
+	- URL: `{{baseUrl}}/api/v1/playlist/`
+	- Body (JSON): { "title": "My list", "videos": ["vid1","vid2"] }
+	- Auth: required
+
+These are representative endpoints; consult route files in `src/routes/` for the full list and exact request/response shapes.
+
 ## Folder structure (important files)
 
 Top-level in `src/`:
@@ -131,17 +207,4 @@ If you plan to extend this project:
 - Keep secrets out of the repo; use `.env` for environment-specific values.
 - Add unit/integration tests for features you change.
 - Run Prettier to keep code formatting consistent.
-
-## Contact / Notes
-
-If you want me to:
-
-- Add a more detailed API reference (endpoint-by-endpoint examples)
-- Add sample Postman collection or curl examples
-
-Tell me which of the above you'd like next and I will prepare it.
-
----
-
-_Generated README — feel free to ask for edits or additional sections (e.g., database migration, CI/CD, deployment, or Postman collection)._ 
 
