@@ -95,6 +95,9 @@ dist
 # vuepress build output
 .vuepress/dist
 
+
+#password text
+Users_id_password.txt
 # Serverless directories
 .serverless/
 
